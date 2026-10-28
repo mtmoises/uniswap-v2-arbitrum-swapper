@@ -1,63 +1,40 @@
-## Foundry
+# 🦄 Uniswap V2 Token Swapper (Arbitrum Network)
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+A production-ready, gas-optimized Smart Contract designed for automated token swaps on Uniswap V2 protocol (and forks like Sushiswap) deployed on Arbitrum One. 
 
-Foundry consists of:
+Built with **Solidity 0.8.24**, leveraging **OpenZeppelin SafeERC20** for secure token transfers and robust error handling.
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+---
 
-## Documentation
+## 📌 Architecture & Features
 
-https://book.getfoundry.sh/
+- **Safe Token Transfer Engine:** Implements OpenZeppelin's `SafeERC20` with `forceApprove` to handle non-standard ERC-20 tokens securely.
+- **DEX Routing Integration:** Directly interfaces with the `IV2Router02` to execute exact-input token swaps (`swapExactTokensForTokens`).
+- **Slippage & Expiration Protection:** Enforces minimum amount out (`amountOutMin_`) and deadline checks (`deadline_`) to prevent front-running and bad execution.
+- **Event Logging:** Emits a `SwapTokens` event on every execution for real-time frontend tracking and off-chain indexing (The Graph / Subgraphs).
 
-## Usage
+---
 
-### Build
+## 🛠 Tech Stack & Tools
 
-```shell
-$ forge build
-```
+- **Language:** Solidity `0.8.24`
+- **Framework:** Foundry / Hardhat
+- **Libraries:** OpenZeppelin Contracts (SafeERC20, IERC20)
+- **Target Chain:** Arbitrum One (EVM Compatible)
 
-### Test
+---
 
-```shell
-$ forge test
-```
+## 🚀 Smart Contract Details
 
-### Format
+### Key Function: `swapTokens`
 
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
+```solidity
+function swapTokens(
+    uint256 amountIn_,
+    uint256 amountOutMin_,
+    address[] memory path_,
+    uint256 deadline_
+) external
 
 ```shell
 $ forge --help
